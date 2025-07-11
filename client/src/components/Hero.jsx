@@ -19,12 +19,12 @@ const Hero = () => {
                 <div className="mt-8 flex justify-center flex-wrap gap-3">
                     <button
                         onClick={() => navigate('/ai')}
-                        className="bg-primary text-white font-medium py-2.5 px-8 rounded-md shadow-md hover:opacity-90 hover:scale-105 transition-transform duration-200"
+                        className="bg-primary cursor-pointer text-white font-medium py-2.5 px-8 rounded-md shadow-md hover:opacity-90 hover:scale-105 transition-transform duration-200"
                     >
                         Get Started
                     </button>
                     <button
-                        className="border border-gray-400 bg-white text-gray-700 py-2.5 px-8 rounded-md hover:bg-gray-50 hover:scale-105 transition-transform duration-200"
+                        className="border cursor-pointer border-gray-400 bg-white text-gray-700 py-2.5 px-8 rounded-md hover:bg-gray-50 hover:scale-105 transition-transform duration-200"
                     >
                         See Demo
                     </button>
