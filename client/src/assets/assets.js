@@ -9,6 +9,7 @@ import { SquarePen, Hash, Image, Eraser, Scissors, FileText } from 'lucide-react
 import ai_gen_img_1 from "./ai_gen_img_1.png";
 import ai_gen_img_2 from "./ai_gen_img_2.png";
 import ai_gen_img_3 from "./ai_gen_img_3.png";
+import novasuite from './novasuite.svg'
 
 export const assets = {
     logo,
@@ -18,6 +19,7 @@ export const assets = {
     star_dull_icon,
     profile_img_1,
     arrow_icon,
+    novasuite
 };
 
 export const AiToolsData = [

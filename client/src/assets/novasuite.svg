@@ -1,0 +1,13 @@
+<svg width="200" height="60" viewBox="0 0 500 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(0,10)" fill="#4A7AFF">
+    <polygon points="30,40 45,25 60,40 45,55"/>
+    <polygon points="45,25 60,10 75,25 60,40"/>
+    <polygon points="45,55 60,70 75,55 60,40"/>
+    <polygon points="30,40 15,25 0,40 15,55"/>
+    <polygon points="15,25 0,10 15,25 30,40"/>
+    <polygon points="15,55 0,70 15,55 30,40"/>
+  </g>
+  <text x="100" y="55" fill="#4A7AFF" font-family="Arial, sans-serif" font-size="40" font-weight="600">
+    Nova<tspan fill="#4A7AFF" font-weight="800">Suite</tspan><tspan font-weight="400" font-size="28">.ai</tspan>
+  </text>
+</svg>

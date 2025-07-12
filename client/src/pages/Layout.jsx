@@ -11,8 +11,14 @@ const Layout = () => {
   const { user } = useUser()
   return user ? (
     <div className='flex flex-col items-start justify-start h-screen'>
-      <nav className='w-full px-8 min-h-14 flex items-center justify-between border-b border-gray-200'>
-        <img className="cursor-pointer" src={assets.logo} alt="" onClick={() => navigate("/")} />
+      <nav className='w-full px-8 h-14 flex items-center justify-between border-b border-gray-200'>
+        <img
+          className="cursor-pointer h-full object-contain"
+          src={assets.novasuite}
+          alt="NovaSuite Logo"
+          onClick={() => navigate("/")}
+        />
+
         {
 
           sidebar ? < X onClick={() => setSidebar(false)} className='cursor-pointer w-6 h-6 text-gray-600 sm:hidden' />
