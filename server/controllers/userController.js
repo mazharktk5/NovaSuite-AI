@@ -68,7 +68,7 @@ export const toggleLikeCreation = async(req,res)=>{
             })
         }
 
-        const currentLikes = creations.likes;
+        const currentLikes = creation.likes;
         const userIdStr = userId.toString();
         let updatedLikes;
         let message;
