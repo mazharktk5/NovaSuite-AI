@@ -17,7 +17,7 @@ export const generateArticle = async (req, res) => {
         const plan = req.plan;
         const free_usage = req.free_usage;
 
-        if (plan !== 'premium' && free_usage >= 0) {
+        if (plan === 'free' && free_usage >= 5) {
             return res.json({
                 success: false,
                 message: 'You have exceeded your free usage limit.Upgrade to continue',
@@ -27,7 +27,7 @@ export const generateArticle = async (req, res) => {
         const response = await AI.chat.completions.create({
             model: "gemini-2.0-flash",
             messages: [
-            
+
                 {
                     role: "user",
                     content: prompt,
@@ -35,16 +35,16 @@ export const generateArticle = async (req, res) => {
             ],
 
             temperature: 0.7,
-            max_token:length,
+            max_tokens: length,
         });
 
         const content = response.choices[0].message.content
 
-        await sql` INSERT INTO creations (user_id,prompt,content,type) VALUES(${userId},${prompt},${content},'article)`;
+        await sql` INSERT INTO creations (user_id,prompt,content,type) VALUES(${userId},${prompt},${content},'article')`;
 
-        if(plan !== 'premium'){
-            await clerkClient.users.updateUserMetadata(userId,{
-                privateMetadata:{ 
+        if (plan !== 'premium') {
+            await clerkClient.users.updateUserMetadata(userId, {
+                privateMetadata: {
                     free_usage: free_usage + 1
                 }
             })
@@ -59,7 +59,7 @@ export const generateArticle = async (req, res) => {
 
     } catch (error) {
         console.error(error.message);
-        res.status(500).json({ success: false, message:error.message });
+        res.status(500).json({ success: false, message: error.message });
 
     }
 }
