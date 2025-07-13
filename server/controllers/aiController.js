@@ -3,6 +3,8 @@ import sql from "../configs/db.js";
 import { clerkClient } from "@clerk/express";
 import axios from "axios";
 import { v2 as cloudinary } from 'cloudinary'
+import fs from 'fs'
+import pdf from 'pdf-parse/lib/pdf-parse.js'
 
 
 
@@ -251,11 +253,11 @@ export const removeImageObject = async (req, res) => {
 
         const { public_id } = await cloudinary.uploader.upload(image.path)
 
-        const imageUrl =  cloudinary.url(public_id, {
-            transformation:[{
-                effect:`gen_remove:${object}`
+        const imageUrl = cloudinary.url(public_id, {
+            transformation: [{
+                effect: `gen_remove:${object}`
             }],
-            resource_type:'image'
+            resource_type: 'image'
         })
 
 
@@ -265,6 +267,70 @@ export const removeImageObject = async (req, res) => {
         res.json({
             success: true,
             content: imageUrl
+
+        })
+
+
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ success: false, message: error.message });
+
+    }
+}
+
+
+
+// Review Resume
+
+export const resumeReview = async (req, res) => {
+    try {
+
+        const { userId } = req.auth();
+        const resume = req.file;
+        const plan = req.plan;
+
+
+        if (plan !== 'premium') {
+            return res.json({
+                success: false,
+                message: 'This feature is only Available for premium subscription',
+            })
+        }
+
+        if (resume.size > 5 * 1024 * 1024) {
+            return res.json({
+                success: false,
+                message: 'Resume size should not exceed 5MB',
+            })
+        }
+
+        const dataBuffer = fs.readFileSync(resume.path)
+
+        const pdfData = await pdf(dataBuffer)
+
+        const prompt = `Review the following resume and provide constructive feedback on its strengths, weakness, and areas for improvement. Resume content: \n\n${pdfData.text}`
+
+
+        const response = await AI.chat.completions.create({
+            model: "gemini-2.0-flash",
+            messages: [{
+                role: "user",
+                content: prompt,
+            },
+            ],
+
+            temperature: 0.7,
+            max_tokens: 1000,
+        });
+
+        const content = response.choices[0].message.content
+
+        await sql` INSERT INTO creations (user_id,prompt,content,type) VALUES(${userId},'Review the uploaded resume',${content},'resume review')`;
+
+
+        res.json({
+            success: true,
+            content: content
 
         })
 
