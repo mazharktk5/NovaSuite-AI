@@ -2,14 +2,10 @@ import express from 'express'
 import cors from 'cors'
 import 'dotenv/config'
 import aiRouter from './routes/aiRoutes.js'
-
 import { clerkMiddleware, requireAuth } from '@clerk/express'
 import connectCloudinary from './configs/cloudinary.js'
 import userRouter from './routes/userRoutes.js'
-
-
-
-
+import serverless from 'serverless-http'
 
 const app = express()
 
@@ -25,10 +21,4 @@ app.use(requireAuth())
 app.use('/api/ai', aiRouter)
 app.use('/api/user', userRouter)
 
-
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-    console.log("Server is running on Port ", PORT);
-
-})
+export const handler = serverless(app) 
