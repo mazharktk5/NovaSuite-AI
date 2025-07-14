@@ -78,7 +78,7 @@ const DiagnoseDisease = () => {
                 {!result ? (
                     <div className='text-gray-400 text-sm mt-6'>Enter symptoms and click Diagnose to get a result</div>
                 ) : (
-                    <div className='text-sm whitespace-pre-line text-slate-700 mt-3'> <Markdown>{result}</Markdown> </div>
+                    <div className='reset-tw'> <Markdown>{result}</Markdown> </div>
                 )}
             </div>
         </div>

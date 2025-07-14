@@ -368,7 +368,7 @@ I am experiencing the following symptoms: ${symptoms}.
 `;
 
         const response = await AI.chat.completions.create({
-            model: "gemini-2.0-flash", // You can also try GPT-4 or Claude if you're using OpenAI/Anthropic instead.
+            model: "gemini-2.0-flash", 
             messages: [
                 {
                     role: "user",
@@ -376,7 +376,7 @@ I am experiencing the following symptoms: ${symptoms}.
                 },
             ],
             temperature: 0.7,
-            // max_tokens omitted so it returns full response (optional depending on provider)
+           
         });
 
         const content = response.choices[0].message.content;
