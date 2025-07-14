@@ -104,7 +104,7 @@ const RemoveBackground = () => {
                     toast.error('Failed to download image');
                   }
                 }}
-                className='inline-block px-4 py-2 text-sm bg-[#FF4938] text-white rounded-md text-center hover:bg-[#e04332]'
+                className='inline-block px-4 py-2 cursor-pointer text-sm bg-[#FF4938] text-white rounded-md text-center hover:bg-[#e04332]'
               >
                 Download Image
               </button>
