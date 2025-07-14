@@ -5,7 +5,6 @@ import aiRouter from './routes/aiRoutes.js'
 import { clerkMiddleware, requireAuth } from '@clerk/express'
 import connectCloudinary from './configs/cloudinary.js'
 import userRouter from './routes/userRoutes.js'
-import serverless from 'serverless-http'
 
 const app = express()
 
@@ -21,4 +20,5 @@ app.use(requireAuth())
 app.use('/api/ai', aiRouter)
 app.use('/api/user', userRouter)
 
-export const handler = serverless(app) 
+// 👇 This is what Vercel needs
+export default app
