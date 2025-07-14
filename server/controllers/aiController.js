@@ -240,7 +240,7 @@ export const removeImageObject = async (req, res) => {
 
         const { userId } = req.auth();
         const { object } = req.body;
-        const { image } = req.file;
+        const image = req.file;
         const plan = req.plan;
 
 
