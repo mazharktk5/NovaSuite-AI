@@ -1,47 +1,66 @@
-# NovaSuite-AI
-⚡️ NovaSuite AI is a full-stack AI SaaS application offering powerful tools like blog/article generation, image background removal, object erasing, AI image creation, and resume reviewing — all in one place.
+# ⚡ NovaSuite-AI – All-in-One AI Utility Web App
 
+NovaSuite-AI is a full-stack AI SaaS application offering a set of powerful tools powered by modern AI models and APIs. From article writing to image editing — everything in one place.
 
-# 🌟 NovaSuite-AI – All-in-One AI Utility Platform
+---
 
-NovaSuite-AI is a modern AI-powered SaaS web application that offers a collection of productivity tools using state-of-the-art artificial intelligence APIs.
+## 🔴 Live URL
 
-## 🚀 Features
+👉 [https://nova-suite-ai-client.vercel.app/](https://nova-suite-ai-client.vercel.app/)
 
-- ✍️ **Blog & Article Generator**  
-  Generate SEO-optimized articles based on custom prompts using OpenAI API.
+---
 
-- 🖼️ **Background Remover**  
-  Instantly remove image backgrounds using AI-powered APIs (like remove.bg or custom ML models).
+## 🧠 Features
 
-- 🧽 **Object Remover (Inpainting)**  
-  Erase unwanted objects from images and intelligently fill the space using AI.
+- 📝 **Write Articles**  
+  Generate detailed, SEO-optimized articles from your custom prompt.
 
-- 🎨 **Image Generator**  
-  Generate images from text prompts using models like DALL·E or Stable Diffusion.
+- 🧠 **Generate Blog Titles**  
+  Get catchy, AI-generated blog title ideas.
+
+- 🎨 **Generate Images from Text**  
+  Use AI to create images based on your prompt.
+
+- 🪄 **Remove Image Background**  
+  Automatically remove image backgrounds using ClipDrop API.
+
+- 🧽 **Remove Objects from Image**  
+  Erase unwanted objects and intelligently fill the space using AI.
 
 - 📄 **Resume Reviewer**  
-  Get AI-based feedback on your resume – structure, grammar, improvements, etc.
+  Upload your resume and get instant feedback on structure, grammar, and improvements.
+
+- 🩺 **Disease Diagnosis** *(Beta)*  
+  Input symptoms and receive AI-powered predictions for possible conditions.
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠 Tech Stack
 
-- **Frontend**: React.js (Tailwind CSS or Bootstrap for styling)
-- **Backend**: Node.js + Express
-- **Database**: Postgres
-- **APIs**:
-  - OpenAI API for content & resume review
-  - remove.bg API or CV model for background removal
-  - DALL·E / Stability AI for image generation
-  - Inpainting API for object removal
+### Frontend
+- React.js
+- Tailwind CSS  
+- Vite (for fast bundling and dev environment)
+
+### Backend
+- Node.js  
+- Express.js  
+- PostgreSQL (via NeonDB)  
+- Clerk (authentication)  
+- Cloudinary (image hosting)  
+
+### AI Services Used
+- OpenAI API (text generation, resume review)  
+- Google Gemini API  
+- Stability AI (image generation)  
+- ClipDrop API (background removal)  
+- Inpainting API (object erasing)
 
 ---
 
-## 📸 Screenshots
+## 🌐 Deployment
 
-> _Add UI screenshots of each feature section here (if available)_
+- **Frontend**: Vercel  
+- **Backend**: Vercel (can switch to Render if needed)
 
 ---
-
-
