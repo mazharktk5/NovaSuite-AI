@@ -38,6 +38,8 @@ const ReviewResume = () => {
       toast.error(error.message)
 
     }
+    setLoading(false)
+    setInput('')
   }
 
   return (
@@ -82,23 +84,23 @@ const ReviewResume = () => {
         </div>
 
         {
-          !content? (<div className='flex-1 flex justify-center items-center'>
+          !content ? (<div className='flex-1 flex justify-center items-center'>
 
-          <div className='text-sm flex flex-1 flex-col items-center gap-5 text-gray-400'>
-            <FileText className='w-9 h-9 ' />
-            <p>Upload a Resume and click "Review Resume" to get started</p>
-          </div>
-
-        </div>): (
-          <div className='mt-3 h-full overflow-y-scroll text-sm text-slate-600'>
-            <div>
-          <Markdown>{content}</Markdown>
+            <div className='text-sm flex flex-1 flex-col items-center gap-5 text-gray-400'>
+              <FileText className='w-9 h-9 ' />
+              <p>Upload a Resume and click "Review Resume" to get started</p>
             </div>
-          </div>
-        )
+
+          </div>) : (
+            <div className='mt-3 h-full overflow-y-scroll text-sm text-slate-600'>
+              <div>
+                <Markdown>{content}</Markdown>
+              </div>
+            </div>
+          )
         }
 
-        
+
 
       </div>
 
