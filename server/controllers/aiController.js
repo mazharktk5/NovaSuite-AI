@@ -341,3 +341,65 @@ export const resumeReview = async (req, res) => {
 
     }
 }
+
+
+// Diagnose Disease
+export const diagnoseDisease = async (req, res) => {
+    try {
+        const { userId } = req.auth();
+        const { symptoms } = req.body;
+        const plan = req.plan;
+        const free_usage = req.free_usage;
+
+        if (plan !== 'premium' && free_usage >= 5) {
+            return res.json({
+                success: false,
+                message: 'You have exceeded your free usage limit. Upgrade to continue',
+            });
+        }
+
+        const prompt = `
+I am experiencing the following symptoms: ${symptoms}.
+- Diagnose the possible diseases or medical conditions.
+- For each condition, provide a short explanation.
+- Suggest relevant over-the-counter or prescription medications.
+- Include any necessary advice like tests to confirm or things to avoid.
+- Write clearly in plain English, like you're talking to a concerned patient.
+`;
+
+        const response = await AI.chat.completions.create({
+            model: "gemini-2.0-flash", // You can also try GPT-4 or Claude if you're using OpenAI/Anthropic instead.
+            messages: [
+                {
+                    role: "user",
+                    content: prompt,
+                },
+            ],
+            temperature: 0.7,
+            // max_tokens omitted so it returns full response (optional depending on provider)
+        });
+
+        const content = response.choices[0].message.content;
+
+        await sql`
+      INSERT INTO creations (user_id, prompt, content, type)
+      VALUES (${userId}, ${prompt}, ${content}, 'diagnosis')
+    `;
+
+        if (plan !== 'premium') {
+            await clerkClient.users.updateUserMetadata(userId, {
+                privateMetadata: {
+                    free_usage: free_usage + 1,
+                },
+            });
+        }
+
+        res.json({
+            success: true,
+            content,
+        });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ success: false, message: error.message });
+    }
+};

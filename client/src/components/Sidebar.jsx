@@ -1,6 +1,6 @@
 import React from 'react'
 import { Protect, useClerk, useUser } from '@clerk/clerk-react'
-import { Eraser, FileText, Hash, House, Image, LogOut, Scissors, SquarePen, Users } from 'lucide-react'
+import { Eraser, FileText, Hash, House, Image, LogOut, Scissors, SquarePen, Stethoscope, Users } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 
 const navItems = [
@@ -43,6 +43,11 @@ const navItems = [
         to: '/ai/community',
         label: 'Community',
         Icon: Users
+    },
+    {
+        to: '/ai/diagnose-disease',
+        label: 'Diagnose Disease',
+        Icon: Stethoscope
     }
 ]
 
