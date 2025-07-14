@@ -86,13 +86,29 @@ const RemoveBackground = () => {
           ) : (
             <div className='mt-3 h-full flex flex-col gap-4'>
               <img src={content} alt="Processed" className='w-full h-auto rounded-lg shadow-md' />
-              <a
-                href={content}
-                download="no-background.png"
+              <button
+                onClick={async () => {
+                  try {
+                    const res = await fetch(content);
+                    const blob = await res.blob();
+                    const url = window.URL.createObjectURL(blob);
+
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = 'no-background.png';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    window.URL.revokeObjectURL(url);
+                  } catch (error) {
+                    toast.error('Failed to download image');
+                  }
+                }}
                 className='inline-block px-4 py-2 text-sm bg-[#FF4938] text-white rounded-md text-center hover:bg-[#e04332]'
               >
                 Download Image
-              </a>
+              </button>
+
             </div>
           )
         }
