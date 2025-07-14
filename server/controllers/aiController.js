@@ -347,7 +347,7 @@ export const resumeReview = async (req, res) => {
 export const diagnoseDisease = async (req, res) => {
     try {
         const { userId } = req.auth();
-        const { symptoms } = req.body;
+        const { symptoms, age, gender, maritalStatus } = req.body;
         const plan = req.plan;
         const free_usage = req.free_usage;
 
@@ -359,16 +359,24 @@ export const diagnoseDisease = async (req, res) => {
         }
 
         const prompt = `
-I am experiencing the following symptoms: ${symptoms}.
-- Diagnose the possible diseases or medical conditions.
+Patient Information:
+- Age: ${age}
+- Gender: ${gender}
+- Marital Status: ${maritalStatus}
+
+Symptoms:
+${symptoms}
+
+Instructions:
+- Based on the patient profile and symptoms, suggest possible diseases or medical conditions.
 - For each condition, provide a short explanation.
-- Suggest relevant over-the-counter or prescription medications.
-- Include any necessary advice like tests to confirm or things to avoid.
-- Write clearly in plain English, like you're talking to a concerned patient.
+- Recommend any relevant over-the-counter or prescription medications.
+- Suggest necessary tests or precautions.
+- Write clearly in plain English, as if you're explaining to a concerned patient.
 `;
 
         const response = await AI.chat.completions.create({
-            model: "gemini-2.0-flash", 
+            model: "gemini-2.0-flash",
             messages: [
                 {
                     role: "user",
@@ -376,15 +384,14 @@ I am experiencing the following symptoms: ${symptoms}.
                 },
             ],
             temperature: 0.7,
-           
         });
 
         const content = response.choices[0].message.content;
 
         await sql`
-      INSERT INTO creations (user_id, prompt, content, type)
-      VALUES (${userId}, ${prompt}, ${content}, 'diagnosis')
-    `;
+            INSERT INTO creations (user_id, prompt, content, type)
+            VALUES (${userId}, ${prompt}, ${content}, 'diagnosis')
+        `;
 
         if (plan !== 'premium') {
             await clerkClient.users.updateUserMetadata(userId, {

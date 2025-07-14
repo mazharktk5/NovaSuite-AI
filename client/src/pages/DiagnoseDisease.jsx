@@ -9,6 +9,9 @@ axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 
 const DiagnoseDisease = () => {
     const [input, setInput] = useState('')
+    const [age, setAge] = useState('')
+    const [gender, setGender] = useState('')
+    const [maritalStatus, setMaritalStatus] = useState('')
     const [loading, setLoading] = useState(false)
     const [result, setResult] = useState('')
     const { getToken } = useAuth()
@@ -19,7 +22,12 @@ const DiagnoseDisease = () => {
         try {
             const { data } = await axios.post(
                 '/api/ai/diagnose-disease',
-                { symptoms: input },
+                {
+                    symptoms: input,
+                    age,
+                    gender,
+                    maritalStatus
+                },
                 {
                     headers: {
                         Authorization: `Bearer ${await getToken()}`
@@ -37,6 +45,9 @@ const DiagnoseDisease = () => {
         }
         setLoading(false)
         setInput('')
+        setAge('')
+        setGender('')
+        setMaritalStatus('')
     }
 
     return (
@@ -47,14 +58,61 @@ const DiagnoseDisease = () => {
                     <h1 className='text-xl font-semibold'>Symptom Checker</h1>
                 </div>
 
-                <p className='mt-6 text-sm font-medium'>Describe your symptoms</p>
-                <textarea
-                    required
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    className='w-full p-2 mt-2 h-28 outline-none text-sm rounded-md border border-gray-300 resize-none'
-                    placeholder='e.g. fever, sore throat, body pain...'
-                ></textarea>
+                <div className='mt-6 space-y-4 text-sm'>
+                    <div>
+                        <label className='block font-medium'>Age</label>
+                        <input
+                            type='number'
+                            min={0}
+                            required
+                            value={age}
+                            onChange={(e) => setAge(e.target.value)}
+                            className='w-full p-2 mt-1 border border-gray-300 rounded-md'
+                        />
+                    </div>
+
+                    <div>
+                        <label className='block font-medium'>Gender</label>
+                        <select
+                            required
+                            value={gender}
+                            onChange={(e) => setGender(e.target.value)}
+                            className='w-full p-2 mt-1 border border-gray-300 rounded-md'
+                        >
+                            <option value=''>Select gender</option>
+                            <option value='male'>Male</option>
+                            <option value='female'>Female</option>
+                            <option value='other'>Other</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label className='block font-medium'>Marital Status</label>
+                        <select
+                            required
+                            value={maritalStatus}
+                            onChange={(e) => setMaritalStatus(e.target.value)}
+                            className='w-full p-2 mt-1 border border-gray-300 rounded-md'
+                        >
+                            <option value=''>Select status</option>
+                            <option value='single'>Single</option>
+                            <option value='married'>Married</option>
+                            <option value='divorced'>Divorced</option>
+                            <option value='widowed'>Widowed</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label className='block font-medium'>Describe your symptoms</label>
+                        <textarea
+                            required
+                            value={input}
+                            onChange={(e) => setInput(e.target.value)}
+                            className='w-full p-2 mt-1 h-28 outline-none text-sm rounded-md border border-gray-300 resize-none'
+                            placeholder='e.g. fever, sore throat, body pain...'
+                        ></textarea>
+                    </div>
+                </div>
 
                 <button
                     disabled={loading}
@@ -76,9 +134,13 @@ const DiagnoseDisease = () => {
                 </div>
 
                 {!result ? (
-                    <div className='text-gray-400 text-sm mt-6'>Enter symptoms and click Diagnose to get a result</div>
+                    <div className='text-gray-400 text-sm mt-6'>
+                        Enter symptoms and other info, then click Diagnose to get a result
+                    </div>
                 ) : (
-                    <div className='reset-tw'> <Markdown>{result}</Markdown> </div>
+                    <div className='reset-tw'>
+                        <Markdown>{result}</Markdown>
+                    </div>
                 )}
             </div>
         </div>
