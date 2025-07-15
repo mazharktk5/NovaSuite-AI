@@ -39,16 +39,18 @@ const navItems = [
         label: 'Review Resume',
         Icon: FileText
     },
+    
+     {
+        to: '/ai/diagnose-disease',
+        label: 'Diagnose Disease',
+        Icon: Stethoscope
+    },
     {
         to: '/ai/community',
         label: 'Community',
         Icon: Users
     },
-    {
-        to: '/ai/diagnose-disease',
-        label: 'Diagnose Disease',
-        Icon: Stethoscope
-    }
+   
 ]
 
 const Sidebar = ({ Sidebar, setSidebar }) => {

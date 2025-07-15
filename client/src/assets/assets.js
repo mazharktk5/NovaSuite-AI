@@ -64,7 +64,15 @@ export const AiToolsData = [
         Icon: FileText,
         bg: { from: '#12B7AC', to: '#08B6CE' },
         path: '/ai/review-resume'
+    },
+    {
+        title: 'Disease Diagnosis',
+        description: 'Describe your symptoms and let our AI suggest possible conditions instantly.',
+        Icon: Stethoscope,
+        bg: { from: '#00C9A7', to: '#2B8DF6' },
+        path: '/ai/diagnose-disease'
     }
+
 ]
 
 export const dummyTestimonialData = [
