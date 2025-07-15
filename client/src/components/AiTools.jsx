@@ -2,10 +2,19 @@ import React from 'react'
 import { AiToolsData } from '../assets/assets'
 import { useNavigate } from 'react-router-dom'
 import { useUser } from '@clerk/clerk-react'
+import toast from 'react-hot-toast'
 
 const AiTools = () => {
     const navigate = useNavigate()
     const { user } = useUser()
+
+    const handleToolClick = (path) => {
+        if (!user) {
+            toast.error('Please login to use this feature')
+            return
+        }
+        navigate(path)
+    }
 
     return (
         <div className='px-4 sm:px-8 md:px-16 lg:px-20 xl:px-32 py-16'>
@@ -23,7 +32,7 @@ const AiTools = () => {
                 {AiToolsData.map((tool, index) => (
                     <div
                         key={index}
-                        onClick={() => user && navigate(tool.path)}
+                        onClick={() => handleToolClick(tool.path)}
                         className='w-full max-w-xs p-6 bg-[#FDFDFE] border border-gray-100 shadow-md rounded-xl hover:-translate-y-1 transition-transform duration-150 cursor-pointer'
                     >
                         <tool.Icon
