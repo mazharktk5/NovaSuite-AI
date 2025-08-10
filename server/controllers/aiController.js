@@ -308,7 +308,7 @@ export const resumeReview = async (req, res) => {
 
         const pdfData = await pdf(dataBuffer)
 
-        const prompt = `Review the following  resume and provide constructive feedback on its strengths, weakness, and areas for improvement. Resume content: \n\n${pdfData.text}`
+        const prompt = `Review the following  resume and provide constructive feedback on its strengths, weakness, and areas for  improvement. Resume content: \n\n${pdfData.text}`
 
 
         const response = await AI.chat.completions.create({
