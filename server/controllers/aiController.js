@@ -370,7 +370,7 @@ ${symptoms}
 Instructions:
 - Based on the patient profile and symptoms, suggest possible diseases or medical conditions.
 - For each condition, provide a short explanation.
-- Recommend any relevant over-the-counter or prescription medications.
+- Recommend any relevant over-the-counter or   prescription medications.
 - Suggest necessary  tests or precautions.
 - Write clearly in plain English, as if you're explaining to a concerned patient.
 `;
